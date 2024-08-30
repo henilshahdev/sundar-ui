@@ -5,6 +5,8 @@ import { fontMono } from "@/lib/fonts";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import Header from "@/components/shared/Header";
+import { Footer } from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
 	title: {
@@ -61,8 +63,11 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body className={cn("min-h-screen bg-background font-sans antialiased", fontMono.className)}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-					<div vaul-drawer-wrapper="">
-						<div className="relative flex min-h-screen flex-col bg-background">{children}</div>
+					<div className="relative flex min-h-screen flex-col bg-background">
+						<Header />
+						<main className="flex-1">{children}</main>
+
+						<Footer />
 					</div>
 				</ThemeProvider>
 			</body>
