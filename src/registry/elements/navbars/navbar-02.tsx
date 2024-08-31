@@ -1,3 +1,5 @@
+"use server";
+
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -13,7 +15,9 @@ import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export default function Nav_Dashbboard() {
+const navLinks: string[] = ["Dashboard", "Orders", "Products", "Customers", "Analytics"];
+
+export default async function Nav_Dashbboard() {
 	return (
 		<header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
 			<nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -21,21 +25,11 @@ export default function Nav_Dashbboard() {
 					<Package2 className="h-6 w-6" />
 					<span className="sr-only">Acme Inc</span>
 				</Link>
-				<Link href="#" className="text-foreground transition-colors hover:text-foreground">
-					Dashboard
-				</Link>
-				<Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-					Orders
-				</Link>
-				<Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-					Products
-				</Link>
-				<Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-					Customers
-				</Link>
-				<Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-					Analytics
-				</Link>
+				{navLinks.map((eachLink, index) => (
+					<Link key={index} href="#" className="text-foreground transition-colors hover:text-foreground">
+						{eachLink}
+					</Link>
+				))}
 			</nav>
 			<Sheet>
 				<SheetTrigger asChild>
@@ -50,21 +44,11 @@ export default function Nav_Dashbboard() {
 							<Package2 className="h-6 w-6" />
 							<span className="sr-only">Acme Inc</span>
 						</Link>
-						<Link href="#" className="hover:text-foreground">
-							Dashboard
-						</Link>
-						<Link href="#" className="text-muted-foreground hover:text-foreground">
-							Orders
-						</Link>
-						<Link href="#" className="text-muted-foreground hover:text-foreground">
-							Products
-						</Link>
-						<Link href="#" className="text-muted-foreground hover:text-foreground">
-							Customers
-						</Link>
-						<Link href="#" className="text-muted-foreground hover:text-foreground">
-							Analytics
-						</Link>
+						{navLinks.map((eachLink, index) => (
+							<Link key={index} href="#" className="hover:text-foreground">
+								{eachLink}
+							</Link>
+						))}
 					</nav>
 				</SheetContent>
 			</Sheet>

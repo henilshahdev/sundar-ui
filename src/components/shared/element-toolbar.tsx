@@ -1,11 +1,12 @@
+"use client";
+
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 
 import { Monitor, Smartphone, Tablet } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/utils";
+
 import { ElementCopyButton } from "./element-copy-button";
 import { ElementType } from "@/types/element";
 
