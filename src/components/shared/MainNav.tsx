@@ -27,6 +27,15 @@ export function MainNav() {
 					Docs
 				</Link>
 				<Link
+					href="/elements"
+					className={cn(
+						"transition-colors hover:text-foreground/80",
+						pathname === "/elements" ? "text-foreground" : "text-foreground/60"
+					)}
+				>
+					Elements
+				</Link>
+				<Link
 					href="/templates"
 					className={cn(
 						"transition-colors hover:text-foreground/80",

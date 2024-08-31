@@ -61,13 +61,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
+			<head />
 			<body className={cn("min-h-screen bg-background font-sans antialiased", fontMono.className)}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-					<div className="relative flex min-h-screen flex-col bg-background">
-						<Header />
-						<main className="flex-1">{children}</main>
-
-						<Footer />
+					<div vaul-drawer-wrapper="">
+						<div className="relative flex min-h-screen flex-col bg-background">{children}</div>
 					</div>
 				</ThemeProvider>
 			</body>
