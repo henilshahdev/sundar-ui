@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,7 @@ import React from "react";
 
 const navLinks: string[] = ["Dashboard", "Orders", "Products", "Customers", "Analytics"];
 
-export default async function Nav_Dashbboard() {
+export default function Nav_Dashbboard() {
 	return (
 		<header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
 			<nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
