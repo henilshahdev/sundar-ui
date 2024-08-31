@@ -1,5 +1,7 @@
+"use server";
+
 import { cn } from "@/lib/utils";
-import { elements } from "@/registry/registry";
+import { getAllElements } from "@/registry/registry";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -11,7 +13,8 @@ export default async function ElementPage({
 	};
 }) {
 	const { name } = params;
-	const element = elements[0];
+	const allElements = await getAllElements();
+	const element = allElements.find((elem) => elem.slug === name);
 
 	if (!element) {
 		return notFound();

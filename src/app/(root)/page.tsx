@@ -1,28 +1,16 @@
+"use server";
+
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/components/shared/page-header";
 import React from "react";
 import ElementWrapper from "@/components/shared/element-wrapper";
-import { ElementType } from "@/types/element";
-import { elements } from "@/registry/registry";
-// import { elements } from "@/registry/registry";
+import { getAllElements } from "@/registry/registry";
 
-// export const elements: ElementType[] = [
-// 	{
-// 		id: 1,
-// 		title: "shadcn Navigation Menu",
-// 		description: "A collection of links for navigating websites.",
-// 		component: React.lazy(() => import("@/registry/elements/navbars/navbar-01")),
-// 		code: "lorem ipsum",
-// 		container: {
-// 			height: 56,
-// 			className: "",
-// 		},
-// 	},
-// ];
+const page = async () => {
+	const allElements = await getAllElements();
 
-const page = () => {
 	return (
 		<div className="container relative">
 			<PageHeader>
@@ -41,8 +29,8 @@ const page = () => {
 					</Button>
 				</PageActions>
 			</PageHeader>
-			<section>
-				{elements.map((element) => (
+			<section className="flex flex-col gap-6">
+				{allElements.map((element) => (
 					<ElementWrapper key={element.id} element={element} />
 				))}
 			</section>

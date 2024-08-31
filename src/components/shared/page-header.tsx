@@ -4,7 +4,7 @@ function PageHeader({ className, children, ...props }: React.HTMLAttributes<HTML
 	return (
 		<section
 			className={cn(
-				"w-full flex justify-center flex-col items-start gap-6 px-4 py-8 md:py-12 md:pb-8 lg:py-12 lg:pb-10",
+				"w-full flex justify-center flex-col items-start gap-4 px-4 py-8 md:py-12 md:pb-8 lg:py-12 lg:pb-10",
 				className
 			)}
 			{...props}

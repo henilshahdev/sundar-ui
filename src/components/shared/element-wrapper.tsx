@@ -10,6 +10,13 @@ import { Icons } from "./icons";
 import Balancer from "react-wrap-balancer";
 import { ElementType } from "@/types/element";
 
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+
 type ElementWrapperProps = {
 	element: ElementType;
 };
@@ -26,6 +33,7 @@ const ElementWrapper = ({ element }: ElementWrapperProps) => {
 					<Balancer>{element.description}</Balancer>
 				</p>
 			</div>
+
 			<Tabs
 				id={element.title}
 				defaultValue="preview"
@@ -37,47 +45,57 @@ const ElementWrapper = ({ element }: ElementWrapperProps) => {
 				}
 			>
 				<ElementToolbar element={element} resizablePanelRef={ref} />
-				<TabsContent
-					value="preview"
-					className="relative after:absolute after:inset-0 after:right-3 after:z-0 after:rounded-lg after:bg-muted overflow-hidden"
-				>
-					<ResizablePanelGroup direction="horizontal" className="relative z-10">
-						<ResizablePanel
-							ref={ref}
-							className={cn("relative rounded-lg border bg-background ")}
-							defaultSize={100}
-							minSize={30}
-						>
-							{isLoading ? (
-								<div className="absolute inset-0 z-10 flex h-[--container-height] w-full items-center justify-center gap-2 bg-background text-sm text-muted-foreground">
-									<Icons.spinner className="h-4 w-4 animate-spin" />
-									Loading...
-								</div>
-							) : null}
-							<iframe
-								src={`/elements/nav_shadcn`}
-								height={element.container?.height ?? 450}
-								className="chunk-mode relative z-20 w-full bg-background"
-								onLoad={() => {
-									setIsLoading(false);
-								}}
+				<ScrollArea className="w-full h-[600px] rounded-md">
+					<TabsContent
+						value="preview"
+						className="relative after:absolute after:inset-0 after:right-3 after:z-0 after:rounded-lg after:bg-muted overflow-hidden"
+					>
+						<ResizablePanelGroup direction="horizontal" className="relative z-10">
+							<ResizablePanel
+								ref={ref}
+								className={cn("relative rounded-lg border bg-background")}
+								defaultSize={100}
+								minSize={30}
+							>
+								{isLoading ? (
+									<div className="absolute inset-0 z-10 flex h-[--container-height] w-full items-center justify-center gap-2 bg-background text-sm text-muted-foreground">
+										<Icons.spinner className="h-4 w-4 animate-spin" />
+										Loading...
+									</div>
+								) : null}
+								<iframe
+									src={`/elements/${element.slug}`}
+									height={550}
+									className="chunk-mode relative z-20 w-full bg-background"
+									onLoad={() => {
+										setIsLoading(false);
+									}}
+								/>
+							</ResizablePanel>
+							<ResizableHandle
+								className={cn(
+									"relative hidden w-3 bg-transparent p-0 after:absolute after:right-0 after:top-1/2 after:h-8 after:w-[6px] after:-translate-y-1/2 after:translate-x-[-1px] after:rounded-full after:bg-border after:transition-all after:hover:h-10 sm:block"
+								)}
 							/>
-						</ResizablePanel>
-						<ResizableHandle
-							className={cn(
-								"relative hidden w-3 bg-transparent p-0 after:absolute after:right-0 after:top-1/2 after:h-8 after:w-[6px] after:-translate-y-1/2 after:translate-x-[-1px] after:rounded-full after:bg-border after:transition-all after:hover:h-10 sm:block"
-							)}
-						/>
-						<ResizablePanel defaultSize={0} minSize={0} />
-					</ResizablePanelGroup>
-				</TabsContent>
-				<TabsContent value="code">
-					<div
-						data-rehype-pretty-code-fragment
-						dangerouslySetInnerHTML={{ __html: element.code }}
-						className="w-full overflow-hidden rounded-md [&_pre]:my-0 [&_pre]:h-[--container-height] [&_pre]:overflow-auto [&_pre]:whitespace-break-spaces [&_pre]:p-6 [&_pre]:font-mono [&_pre]:text-sm [&_pre]:leading-relaxed"
-					/>
-				</TabsContent>
+							<ResizablePanel defaultSize={0} minSize={0} />
+						</ResizablePanelGroup>
+					</TabsContent>
+					<TabsContent className="max-w-[1320px] h-[600px]" value="code">
+						<SyntaxHighlighter
+							customStyle={{
+								height: "max",
+								borderRadius: "6px",
+								fontSize: "16px",
+								marginTop: "0px",
+							}}
+							showLineNumbers
+							language="javascript"
+							style={vscDarkPlus}
+						>
+							{element.code}
+						</SyntaxHighlighter>
+					</TabsContent>
+				</ScrollArea>
 			</Tabs>
 		</div>
 	);
